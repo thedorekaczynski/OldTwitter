@@ -911,16 +911,33 @@ setTimeout(async () => {
     });
     copyLinksAs.addEventListener('change', () => {
         let val = copyLinksAs.value;
+        
         if(val === 'custom') {
             val = prompt(LOC.copy_tweet_links_as.message);
             if(!val) {
+                let previousVal = vars.copyLinksAs || 'twitter.com';
+                if(['twitter.com', 'fxtwitter.com', 'vxtwitter.com', 'nitter.net', 'fixupx.com', 'x.com'].includes(previousVal)) {
+                    copyLinksAs.value = previousVal;
+                }
                 return;
             }
         }
-            
+        
+        vars.copyLinksAs = val;
+        
         chrome.storage.sync.set({
             copyLinksAs: val
-        }, () => { });
+        }, () => {
+            if(!['twitter.com', 'fxtwitter.com', 'vxtwitter.com', 'nitter.net', 'fixupx.com', 'x.com'].includes(val)) {
+                copyLinksAs.value = 'custom';
+                let customValueDisplay = document.getElementById('copy-links-as-custom-value');
+                customValueDisplay.textContent = val;
+                customValueDisplay.hidden = false;
+            } else {
+                let customValueDisplay = document.getElementById('copy-links-as-custom-value');
+                customValueDisplay.hidden = true;
+            }
+        });
     });
     customCSS.addEventListener('keydown', e => {
         if(e.key === "Tab") {
@@ -1112,6 +1129,11 @@ setTimeout(async () => {
     document.getElementById('loc-dig').hidden = language.value !== 'zh_TW' && language.value !== 'zh_CN' && language.value !== 'ja' && language.value !== 'ko';
     autotranslationMode.value = vars.autotranslationMode;
     copyLinksAs.value = ['twitter.com', 'fxtwitter.com', 'vxtwitter.com', 'nitter.net', 'fixupx.com', 'x.com'].includes(vars.copyLinksAs) ? vars.copyLinksAs : 'custom';
+    let customValueDisplay = document.getElementById('copy-links-as-custom-value');
+    if(!['twitter.com', 'fxtwitter.com', 'vxtwitter.com', 'nitter.net', 'fixupx.com', 'x.com'].includes(vars.copyLinksAs)) {
+        customValueDisplay.textContent = vars.copyLinksAs;
+        customValueDisplay.hidden = false;
+    }
     if(vars.timeMode) {
         darkMode.disabled = true;
         darkMode.checked = isDark();
