@@ -293,6 +293,8 @@ setTimeout(async () => {
     let showBasedIn = document.getElementById('show-based-in');
     let developerMode = document.getElementById('developer-mode');
     let copyLinksAs = document.getElementById('copy-links-as');
+    let copyLinksAsCustomValue = document.getElementById('copy-links-as-custom-value');
+    const PRESET_DOMAINS = ['twitter.com', 'fxtwitter.com', 'vxtwitter.com', 'nitter.net', 'fixupx.com', 'x.com'];
     let useNewIcon = document.getElementById('use-new-icon');
     let updateTimelineAutomatically = document.getElementById('update-timeline-automatically');
     let hideTrends = document.getElementById('hide-trends');
@@ -909,6 +911,15 @@ setTimeout(async () => {
             initColors();
         });
     });
+    function updateCustomValueDisplay(value) {
+        if(!PRESET_DOMAINS.includes(value)) {
+            copyLinksAs.value = 'custom';
+            copyLinksAsCustomValue.textContent = value;
+            copyLinksAsCustomValue.hidden = false;
+        } else {
+            copyLinksAsCustomValue.hidden = true;
+        }
+    }
     copyLinksAs.addEventListener('change', () => {
         let val = copyLinksAs.value;
         
@@ -916,9 +927,7 @@ setTimeout(async () => {
             val = prompt(LOC.copy_tweet_links_as.message);
             if(!val) {
                 let previousVal = vars.copyLinksAs || 'twitter.com';
-                if(['twitter.com', 'fxtwitter.com', 'vxtwitter.com', 'nitter.net', 'fixupx.com', 'x.com'].includes(previousVal)) {
-                    copyLinksAs.value = previousVal;
-                }
+                copyLinksAs.value = PRESET_DOMAINS.includes(previousVal) ? previousVal : 'custom';
                 return;
             }
         }
@@ -928,15 +937,7 @@ setTimeout(async () => {
         chrome.storage.sync.set({
             copyLinksAs: val
         }, () => {
-            if(!['twitter.com', 'fxtwitter.com', 'vxtwitter.com', 'nitter.net', 'fixupx.com', 'x.com'].includes(val)) {
-                copyLinksAs.value = 'custom';
-                let customValueDisplay = document.getElementById('copy-links-as-custom-value');
-                customValueDisplay.textContent = val;
-                customValueDisplay.hidden = false;
-            } else {
-                let customValueDisplay = document.getElementById('copy-links-as-custom-value');
-                customValueDisplay.hidden = true;
-            }
+            updateCustomValueDisplay(val);
         });
     });
     customCSS.addEventListener('keydown', e => {
@@ -1128,12 +1129,8 @@ setTimeout(async () => {
     language.value = vars.language ? vars.language : 'en';
     document.getElementById('loc-dig').hidden = language.value !== 'zh_TW' && language.value !== 'zh_CN' && language.value !== 'ja' && language.value !== 'ko';
     autotranslationMode.value = vars.autotranslationMode;
-    copyLinksAs.value = ['twitter.com', 'fxtwitter.com', 'vxtwitter.com', 'nitter.net', 'fixupx.com', 'x.com'].includes(vars.copyLinksAs) ? vars.copyLinksAs : 'custom';
-    let customValueDisplay = document.getElementById('copy-links-as-custom-value');
-    if(!['twitter.com', 'fxtwitter.com', 'vxtwitter.com', 'nitter.net', 'fixupx.com', 'x.com'].includes(vars.copyLinksAs)) {
-        customValueDisplay.textContent = vars.copyLinksAs;
-        customValueDisplay.hidden = false;
-    }
+    copyLinksAs.value = PRESET_DOMAINS.includes(vars.copyLinksAs) ? vars.copyLinksAs : 'custom';
+    updateCustomValueDisplay(vars.copyLinksAs);
     if(vars.timeMode) {
         darkMode.disabled = true;
         darkMode.checked = isDark();
