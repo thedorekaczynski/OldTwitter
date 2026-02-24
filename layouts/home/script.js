@@ -151,6 +151,7 @@ async function updateTimeline(mode = 'rewrite') {
             case 'chrono-retweets': fn = API.timeline.getChronologicalV2; break;
             case 'chrono-no-retweets': fn = API.timeline.getChronologicalV2; break;
             case 'popular-from-follows': fn = API.timeline.getPopularFromFollows; break;
+            case 'popular-from-follows-no-retweets': fn = API.timeline.getPopularFromFollows; break;
             default: fn = API.timeline.getChronologicalV2; break;
         }
     }
@@ -179,6 +180,8 @@ async function updateTimeline(mode = 'rewrite') {
     } else if(vars.timelineType === 'chrono-retweets') {
         tl = tl.filter(t => t.retweeted_status);
     } else if(vars.timelineType === 'chrono-no-retweets') {
+        tl = tl.filter(t => !t.retweeted_status);
+    } else if(vars.timelineType === 'popular-from-follows-no-retweets') {
         tl = tl.filter(t => !t.retweeted_status);
     }
     if(!user.friends_count && tl.length === 0 && vars.timelineType.startsWith('chrono') && !suspended && mode === 'rewrite') {
@@ -466,6 +469,7 @@ setTimeout(async () => {
             else switch(vars.timelineType) {
                 case 'algo': tl = await API.timeline.getAlgorithmicalV2(cursorBottom, 50); break;
                 case 'popular-from-follows': tl = await API.timeline.getPopularFromFollows(cursorBottom, 50); break;
+                case 'popular-from-follows-no-retweets': tl = await API.timeline.getPopularFromFollows(cursorBottom, 50); break;
                 default: tl = await API.timeline.getChronologicalV2(cursorBottom); break;
             }
             cursorBottom = tl.cursorBottom;
@@ -476,6 +480,8 @@ setTimeout(async () => {
             if(vars.timelineType === 'chrono-retweets') {
                 tl = tl.filter(t => t.retweeted_status);
             } else if(vars.timelineType === 'chrono-no-retweets') {
+                tl = tl.filter(t => !t.retweeted_status);
+            } else if(vars.timelineType === 'popular-from-follows-no-retweets') {
                 tl = tl.filter(t => !t.retweeted_status);
             }
         } catch (e) {

@@ -655,5 +655,7 @@
     "new_gallery": { "message": "Use new gallery for profile media page" },
     "popular_from_follows": { "message": "Popular from follows" },
     "popular_from_follows_help": { "message": "This will show the most popular recent tweets only from the people you follow." },
+    "popular_from_follows_no_retweets": { "message": "Popular from follows (no retweets)" },
+    "popular_from_follows_no_retweets_help": { "message": "Same as popular from follows but with no retweets." },
     "use_x_chat": { "message": "Use X Chat instead of OldTwitter DMs." }
 }

@@ -655,5 +655,7 @@
     "new_gallery": { "message": "Gunakan galeri baru untuk halaman media profil" },
     "popular_from_follows": { "message": "Populer dari yang diikuti" },
     "popular_from_follows_help": { "message": "Ini akan menampilkan tweet populer terkini hanya dari pengguna yang kamu ikuti." },
+    "popular_from_follows_no_retweets": { "message": "Populer dari yang diikuti (tanpa retweet)" },
+    "popular_from_follows_no_retweets_help": { "message": "Sama seperti populer dari yang diikuti namun tanpa menampilkan retweet." },
     "use_x_chat": { "message": "Gunakan Obrolan X, bukan DM OldTwitter." }
 }

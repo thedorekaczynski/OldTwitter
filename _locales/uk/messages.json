@@ -644,5 +644,7 @@
     "based_in": { "message": "Розташування:" },
     "based_in_vpn": { "message": "(VPN)" },
     "new_gallery": { "message": "Використовувати нову галерею для сторінки медіа профілю" },
-    "popular_from_follows": { "message": "Популярне з підписок" }
+    "popular_from_follows": { "message": "Популярне з підписок" },
+    "popular_from_follows_no_retweets": { "message": "Популярне з підписок (без ретвітів)" },
+    "popular_from_follows_no_retweets_help": { "message": "Те ж саме що популярне з підписок, тільки без ретвітів." }
 }

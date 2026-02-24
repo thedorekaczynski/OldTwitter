@@ -1163,6 +1163,7 @@ setTimeout(async () => {
                 <div><b>${LOC.chrono_retweets.message}</b> - ${LOC.chrono_retweets_help.message}</div>
                 <div><b>${LOC.algov2.message}</b> - ${LOC.algov2_help.message}</div>
                 <div><b>${LOC.popular_from_follows.message}</b> - ${LOC.popular_from_follows_help.message}</div>
+                <div><b>${LOC.popular_from_follows_no_retweets.message}</b> - ${LOC.popular_from_follows_no_retweets_help.message}</div>
             </div>
         `)
     });

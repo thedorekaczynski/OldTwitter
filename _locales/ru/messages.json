@@ -666,5 +666,7 @@
     "based_in": { "message": "Местоположение:" },
     "based_in_vpn": { "message": "(VPN)" },
     "new_gallery": { "message": "Использовать новую галерею для страницы медиа профиля" },
-    "popular_from_follows": { "message": "Популярное из подписок" }
+    "popular_from_follows": { "message": "Популярное из подписок" },
+    "popular_from_follows_no_retweets": { "message": "Популярное из подписок (без ретвитов)" },
+    "popular_from_follows_no_retweets_help": { "message": "Тоже что и популярное из подписок, но без ретвитов." }
 }
